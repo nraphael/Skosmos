@@ -63,7 +63,7 @@
     "twig/twig": "2.4.*",
     "twig/extensions": "1.5.*",
     "twitter/bootstrap": "3.3.*",
-    "twitter/typeahead.js": "v0.10.5",
+    "twitter/typeahead.js": "v0.11.1",
     "willdurand/negotiation": "2.3.*",
     "vakata/jstree": "3.3.*",
     "punic/punic": "1.6.5",
