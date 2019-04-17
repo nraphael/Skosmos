@@ -645,17 +645,15 @@ $(function() { // DOCUMENT READY
         var wildcard = (query.indexOf('*') === -1) ? '*' : '';
         return url + encodeURIComponent(query) + wildcard;
       },
-      ajax: {
-        beforeSend: function(jqXHR, settings) {
-          wildcard = ($('#search-field').val().indexOf('*') === -1) ? '*' : '';
-          var vocabString = $('.frontpage').length ? vocabSelectionString : vocab;
-          var parameters = $.param({'vocab' : vocabString, 'lang' : qlang, 'labellang' : qlang});
-          // if the search has been targeted at all languages by clicking the checkbox
-          if ($('input[name=anylang]').is(':checked')) {
-            parameters = $.param({'vocab' : vocabString, 'lang' : '', 'labellang' : ''});
-          }
-          settings.url = settings.url + '&' + parameters;
+      prepare: function(query, settings) {
+        wildcard = ($('#search-field').val().indexOf('*') === -1) ? '*' : '';
+        var vocabString = $('.frontpage').length ? vocabSelectionString : vocab;
+        var parameters = $.param({'vocab' : vocabString, 'lang' : qlang, 'labellang' : qlang});
+        // if the search has been targeted at all languages by clicking the checkbox
+        if ($('input[name=anylang]').is(':checked')) {
+          parameters = $.param({'vocab' : vocabString, 'lang' : '', 'labellang' : ''});
         }
+        settings.url = settings.url + '&' + parameters;
       },
       // changes the response so it can be easily displayed in the handlebars template.
       filter: function(data) {
