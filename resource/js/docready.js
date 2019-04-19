@@ -656,7 +656,7 @@ $(function() { // DOCUMENT READY
         settings.url = settings.url + '&' + parameters;
       },
       // changes the response so it can be easily displayed in the handlebars template.
-      filter: function(data) {
+      transform: function(data) {
         // looping the matches to see if there are hits where the concept has been hit by a property other than hiddenLabel
         var hasNonHiddenMatch = {};
         for (var i = 0; i < data.results.length; i++) {
