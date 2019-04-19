@@ -660,13 +660,15 @@ $(function() { // DOCUMENT READY
         var hasNonHiddenMatch = {};
         for (var i = 0; i < data.results.length; i++) {
             var hit = data.results[i];
-            if (!hit.hiddenLabel) {
+            if (hit) {
+              if (!hit.hiddenLabel) {
                 hasNonHiddenMatch[hit.uri] = true;
-            } else if (hit.hiddenLabel) {
+              } else if (hit.hiddenLabel) {
                 if (hasNonHiddenMatch[hit.uri]) {
-                    delete data.results[i];
+                  delete data.results[i];
                 }
                 hasNonHiddenMatch[hit.uri] = false;
+              }
             }
         }
         var context = data['@context'];
@@ -737,10 +739,12 @@ $(function() { // DOCUMENT READY
         name: 'concept',
         displayKey: 'label',
         templates: {
-          empty: Handlebars.compile([
+          notFound: Handlebars.compile([
             '<div><p class="autocomplete-no-results">{{#noresults}}{{/noresults}}</p></div>'
-          ].join('')),
-          suggestion: Handlebars.compile(autocompleteTemplate)
+          ].join(''))({}),
+          suggestion: function(data) {
+            return Handlebars.compile(autocompleteTemplate)(data);
+          }
         },
         source: concepts
     }).on('typeahead:cursorchanged', function() {
