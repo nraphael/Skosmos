@@ -645,6 +645,7 @@ $(function() { // DOCUMENT READY
         var wildcard = (query.indexOf('*') === -1) ? '*' : '';
         return url + encodeURIComponent(query) + wildcard;
       },
+      // wildcard: "%QUERY", // when you use prepare, you have to manually handle wildcard, hence commented out here
       prepare: function(query, settings) {
         wildcard = ($('#search-field').val().indexOf('*') === -1) ? '*' : '';
         var vocabString = $('.frontpage').length ? vocabSelectionString : vocab;
@@ -653,7 +654,7 @@ $(function() { // DOCUMENT READY
         if ($('input[name=anylang]').is(':checked')) {
           parameters = $.param({'vocab' : vocabString, 'lang' : '', 'labellang' : ''});
         }
-        settings.url = settings.url + '&' + parameters;
+        settings.url = settings.url + query + '&' + parameters;
       },
       // changes the response so it can be easily displayed in the handlebars template.
       transform: function(data) {
