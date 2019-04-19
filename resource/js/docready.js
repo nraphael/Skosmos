@@ -743,7 +743,7 @@ $(function() { // DOCUMENT READY
           ].join('')),
           suggestion: Handlebars.compile(autocompleteTemplate)
         },
-        source: concepts.ttAdapter()
+        source: concepts
     }).on('typeahead:cursorchanged', function() {
       $('.tt-dropdown-menu').mCustomScrollbar("scrollTo", '.tt-cursor');
     }).on('typeahead:selected', onSelection).bind('focus', function() {
