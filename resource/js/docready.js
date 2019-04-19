@@ -636,25 +636,23 @@ $(function() { // DOCUMENT READY
     });
   }
 
-  var wildcard = '';
-
   var concepts = new Bloodhound({
     remote: {
       url: rest_base_url + 'search?query=',
-      replace: function(url, query) {
-        var wildcard = (query.indexOf('*') === -1) ? '*' : '';
-        return url + encodeURIComponent(query) + wildcard;
-      },
       // wildcard: "%QUERY", // when you use prepare, you have to manually handle wildcard, hence commented out here
       prepare: function(query, settings) {
-        wildcard = ($('#search-field').val().indexOf('*') === -1) ? '*' : '';
+        var wildcard = ($('#search-field').val().indexOf('*') === -1) ? '*' : '';
         var vocabString = $('.frontpage').length ? vocabSelectionString : vocab;
         var parameters = $.param({'vocab' : vocabString, 'lang' : qlang, 'labellang' : qlang});
         // if the search has been targeted at all languages by clicking the checkbox
         if ($('input[name=anylang]').is(':checked')) {
           parameters = $.param({'vocab' : vocabString, 'lang' : '', 'labellang' : ''});
         }
-        settings.url = settings.url + query + '&' + parameters;
+        // add wildcard
+        settings.url = settings.url + encodeURIComponent(query) + wildcard;
+        // add parameters
+        settings.url = settings.url + '&' + parameters;
+        return settings;
       },
       // changes the response so it can be easily displayed in the handlebars template.
       transform: function(data) {
