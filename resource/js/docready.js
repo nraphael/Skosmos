@@ -722,12 +722,14 @@ $(function() { // DOCUMENT READY
   concepts.initialize();
 
   var autocompleteTemplate =[
+    '<div>',
     '{{# if matched }}<p>{{matched}}{{# if lang}} ({{lang}}){{/if}} = </p>{{/if}}',
     '{{# if replaced }}<p class="replaced">{{replaced}}{{# if lang}} ({{lang}}){{/if}} &rarr; </p>{{/if}}',
     '{{# if notation }}<p>{{notation}}</p>{{/if}}',
     '<p class="autocomplete-label">{{label}}{{# if lang}}{{# unless matched }}<p>({{lang}})</p>{{/unless}}{{/if}}</p>',
     '{{# if typeLabel }}<span class="concept-type">{{typeLabel}}</span>{{/if}}',
-    '<div class="vocab">{{vocabLabel}}</div>'
+    '<div class="vocab">{{vocabLabel}}</div>',
+    '</div>'
   ].join('');
 
   if ($('.headerbar').length > 0) {
